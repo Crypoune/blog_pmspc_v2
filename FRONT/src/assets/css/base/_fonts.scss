@@ -1,0 +1,16 @@
+/// FONT TITRE ///
+@font-face {
+  font-family: "Fredoka Condensed SemiBold";
+  src: url("/src/assets/fonts/Fredoka/static/Fredoka_Condensed-SemiBold.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/// FONT TEXTE ///
+@font-face {
+  font-family: "Poppins Regular";
+  src: url("/src/assets/fonts/Poppins/Poppins-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}

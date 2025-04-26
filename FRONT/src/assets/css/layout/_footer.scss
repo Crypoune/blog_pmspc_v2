@@ -1,0 +1,88 @@
+@use "../utils/variables" as vars;
+@use "../utils/mixins" as mixin;
+
+.footer {
+  background-color: vars.$primary-color;
+  color: vars.$text-light-color;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+
+    @include mixin.respond-to(tablet) {
+      flex-direction: row;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
+  }
+
+  &__section {
+    text-align: center;
+    font-size: 1.25rem;
+    width: 60%;
+
+    @include mixin.respond-to(tablet) {
+      width: 30%;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin: 5px 0;
+
+        a {
+          color: vars.$text-color;
+          text-decoration: none;
+          font-weight: 600;
+          transition: color 0.3s, transform 0.3s ease-in-out;
+          display: inline-block;
+
+          &:hover {
+            transform: scale(0.9);
+            color: vars.$tertiary-color;
+          }
+        }
+      }
+    }
+  }
+
+  // Réseaux sociaux
+  .social-links {
+    ul {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+
+      li {
+        a {
+          font-size: 4rem;
+          display: flex;
+          align-items: center;
+          transition: transform 0.2s ease-in-out;
+          color: vars.$text-color;
+
+          &:hover {
+            transform: scale(1.2);
+            color: vars.$tertiary-color;
+          }
+        }
+      }
+    }
+  }
+
+  // Bas de page (copyright)
+  &__bottom {
+    margin-top: 10px;
+  }
+}

@@ -1,0 +1,52 @@
+@use "../utils/variables" as vars;
+@use "../utils/mixins" as mixin;
+
+.categories-list {
+  margin-top: 20px;
+
+  @include mixin.center-flex();
+  width: 100%;
+
+  @include mixin.respond-to(tablet) {
+    max-width: 800px;
+  }
+  @include mixin.respond-to(desktop) {
+    max-width: 1000px;
+  }
+}
+
+.category-item {
+  @include mixin.center-flex(row);
+  width: 100%;
+  padding: 5px;
+
+  &:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    background-color: vars.$tertiary-color;
+  }
+}
+
+.category-item:has(.categoryButtons) {
+  // Quand la div CategoryButtons est présente dans la div CategoryItem (l'utilisateur est admin)
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+
+  .categoryButtons {
+    @include mixin.center-flex(row, center, left);
+    gap: 10px;
+  }
+}
+
+.edit-category-item {
+  @include mixin.center-flex(row);
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+
+  input {
+    padding: 10px;
+    width: 100%;
+  }
+}

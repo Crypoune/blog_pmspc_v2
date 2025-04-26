@@ -1,0 +1,161 @@
+@use "../utils/variables" as vars;
+@use "../utils/mixins" as mixin;
+
+.article-card {
+  background-color: vars.$primary-color;
+  border-radius: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  margin: 10px auto;
+
+  @include mixin.respond-to(tablet) {
+    margin: 15px auto; // Ajustez les marges pour les écrans plus grands
+    max-width: 900px; // Limite la largeur des cartes pour les tablettes et plus
+  }
+
+  @include mixin.respond-to(desktop) {
+    margin: 20px auto; // Plus d'espace autour des cartes pour les grands écrans
+  }
+
+  .article-header {
+    width: 100%;
+    text-align: center;
+  }
+
+  .article-body {
+    display: flex;
+    flex-direction: column; // Par défaut en colonne (mobile)
+    gap: 15px;
+    width: 100%;
+    padding: 15px;
+
+    @include mixin.respond-to(tablet) {
+      flex-direction: row;
+      gap: 20px;
+    }
+  }
+
+  .article-image {
+    border-color: black;
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .article-content {
+    display: block;
+    background-color: vars.$tertiary-color;
+    border-radius: 10px;
+    width: 100%;
+    overflow: hidden;
+
+    .article-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0;
+      max-height: 180px;
+      font-size: 2rem;
+
+      @include mixin.respond-to(tablet) {
+        max-height: 270px;
+        font-size: 1.9rem;
+      }
+
+      @include mixin.respond-to(desktop) {
+        max-height: 290px;
+        font-size: 1.8rem;
+      }
+    }
+
+    .article-date {
+      text-align: left;
+      margin: 2rem 1rem 1rem 1rem;
+      font-size: 1rem;
+    }
+  }
+
+  .article-footer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px; // Moins d’espace en mobile
+    align-items: center;
+
+    .like,
+    .love {
+      padding: 8px;
+      border-radius: 5px;
+      color: vars.$text-light-color;
+      font-weight: bold;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+}
+
+/// Styles Cards Liens Utiles ///
+
+.resources-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  border-radius: 10px;
+  margin: auto;
+
+  @include mixin.respond-to(tablet) {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+  }
+}
+
+.resource-card {
+  background-color: vars.$secondary-color;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 10px;
+  transition: transform 0.3s ease-in-out;
+  height: 100%; /* Empêche les cartes d’être trop petites */
+  max-width: 300px; /* Limite la taille des cartes */
+  width: 100%; /* Assure que chaque carte occupe toute la largeur de la cellule de grid */
+
+  &:hover {
+    transform: scale(1.05);
+  }
+}
+
+.resource-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.resource-logo {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+}
+
+.resource-text {
+  h3 {
+    color: vars.$tertiary-color;
+  }
+}

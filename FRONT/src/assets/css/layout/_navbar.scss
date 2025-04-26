@@ -1,0 +1,76 @@
+@use "../utils/variables" as vars;
+@use "../utils/mixins" as mixin;
+
+.NavBar {
+  display: flex; // Utilise Flexbox pour aligner les éléments enfants
+  justify-content: space-between; // Aligne les éléments à gauche et à droite avec de l'espace entre eux
+  background-color: vars.$primary-color; // Définit la couleur de fond
+  padding: 10px; // Ajoute un espace intérieur pour éviter que le contenu ne touche les bords
+  width: 100%; // Assure que le conteneur prend toute la largeur disponible
+  box-sizing: border-box; // Inclut le padding et la bordure dans la largeur totale
+  overflow: hidden; // Cache les débordements pour éviter les barres de défilement non désirées
+  font-size: 1.8rem; // Définit la taille de la police
+
+  @include mixin.respond-to(tablet) {
+    justify-content: space-around; // Répartit uniformément l'espace autour des éléments
+    font-size: 2.5rem;
+  }
+}
+
+.logo {
+  width: 60%;
+  max-width: 150px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.NavBar__toggle {
+  display: block; // Affiche le bouton de basculement par défaut sur mobile
+  background: none; // Supprime le fond par défaut du bouton
+  border: none; // Supprime la bordure par défaut du bouton
+  font-size: 3rem; // Définit la taille de la police pour le bouton
+  color: vars.$text-light-color; // Définit la couleur du texte du bouton
+  cursor: pointer; // Change le curseur en pointeur lors du survol
+
+  &:hover {
+    color: vars.$tertiary-color; // Change la couleur du texte lors du survol
+  }
+
+  @include mixin.respond-to(tablet) {
+    display: none; // Masque le bouton de basculement sur les écrans plus grands
+  }
+}
+
+.NavBar a {
+  color: vars.$text-light-color; // Définit la couleur du texte des liens
+  text-decoration: none; // Supprime la décoration de texte (soulignement) des liens
+  transition: color 0.3s ease; // Ajoute une transition douce pour le changement de couleur
+}
+
+.NavBar a.active {
+  font-weight: bold; // Met le texte en gras pour le lien actif
+  color: vars.$tertiary-color; // Change la couleur du texte pour le lien actif
+}
+
+.NavBar a:hover {
+  color: vars.$tertiary-color; // Change la couleur du texte lors du survol des liens
+}
+
+.NavBar__links {
+  display: none; // Masque les liens de navigation par défaut sur mobile
+  align-items: flex-end; // Aligne les liens à la fin de l'axe transversal
+  gap: 15px; // Ajoute de l'espace entre les liens
+
+  &--open {
+    display: flex; // Affiche les liens lorsque le menu est ouvert
+    flex-direction: row; // Aligne les liens en ligne lorsqu'ils sont affichés
+  }
+
+  @include mixin.respond-to(tablet) {
+    display: flex; // Affiche les liens de navigation sur les écrans plus grands
+    flex-direction: row; // Aligne les liens en ligne
+    gap: 3rem; // Ajoute un espace entre les liens
+  }
+}

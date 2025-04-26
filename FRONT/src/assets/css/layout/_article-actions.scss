@@ -1,0 +1,20 @@
+@use "../utils/variables" as vars;
+
+.article-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px;
+  margin: 10px;
+  gap: 6px;
+  width: 100%;
+}
+
+.admin-actions {
+  margin-left: 0px;
+  margin-right: 0px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: right;
+  gap: 10px;
+}

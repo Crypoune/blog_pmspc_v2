@@ -1,0 +1,19 @@
+@use "../utils/variables" as vars;
+@use "../utils/mixins" as mixin;
+
+// Styles par défaut pour les mobiles
+.search-bar {
+  display: none; // Cache la barre de recherche par défaut sur mobile
+  gap: 10px;
+
+  @include mixin.respond-to(tablet) {
+    display: flex; // Affiche la barre de recherche sur les écrans plus grands
+  }
+}
+
+.search-bar__input {
+  flex: 1; // Permet à l'input de prendre l'espace disponible
+  border-radius: 10px;
+  padding: 10px; // Ajoute du padding à l'intérieur de l'input
+  box-sizing: border-box; // Inclut le padding et la bordure dans la hauteur totale
+}

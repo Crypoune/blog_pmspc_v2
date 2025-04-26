@@ -1,0 +1,47 @@
+@use "../utils/variables" as vars;
+@use "../utils/mixins" as mixin;
+
+.article-comment {
+  border-radius: 10px;
+  width: 100%;
+  margin: 10px;
+  padding: 10px;
+
+  .article-comment-area {
+    @include mixin.center-flex(row);
+    gap: 10px;
+
+    .article-comment-form {
+      width: 100%;
+
+      textarea {
+        height: 8em;
+        width: 100%;
+        border-radius: 10px;
+        padding: 10px;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+.article-comment-text {
+  font-size: 1.8rem;
+  width: 100%;
+  align-items: center;
+}
+
+.comments-container {
+  width: 100%;
+  .comments-list {
+    padding: 5px;
+
+    .comment-row {
+      border-radius: 10px;
+      background-color: vars.$tertiary-color;
+      margin: 5px;
+      padding: 5px;
+      font-size: 1.5rem;
+    }
+  }
+}

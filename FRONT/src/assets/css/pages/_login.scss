@@ -1,0 +1,50 @@
+@use "../utils/variables" as vars;
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.login-form {
+  background-color: vars.$tertiary-color;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  text-align: center;
+  font-size: 1.5rem;
+
+  input {
+    font-size: 1.5rem;
+  }
+  .btn-login {
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+    color: vars.$text-light-color;
+    background-color: vars.$primary-color;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+
+    &:hover {
+      background-color: vars.$hovered-button-color;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 4px rgba(vars.$tertiary-color, 0.5);
+    }
+  }
+
+  h3 {
+    color: vars.$primary-color;
+  }
+
+  h3::after {
+    display: none;
+  }
+}

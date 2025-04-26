@@ -1,0 +1,45 @@
+@use "../utils/variables" as vars;
+
+.slider {
+  position: relative;
+  display: inline-block;
+  border: 2px solid black;
+  border-radius: inherit;
+  overflow: hidden;
+  margin: 10px;
+  max-height: 80vh; /* Évite une hauteur excessive sur grand écran */
+
+  .slider-content {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+  }
+
+  .slider-image {
+    width: 100%;
+    height: auto;
+    max-height: 80vh; /* Ajuste la hauteur max pour éviter les débordements */
+    object-fit: contain;
+    display: block;
+  }
+
+  .slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+
+    &.prev {
+      left: 10px;
+    }
+
+    &.next {
+      right: 10px;
+    }
+  }
+}

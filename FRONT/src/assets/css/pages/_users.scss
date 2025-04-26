@@ -1,0 +1,70 @@
+@use "../utils/variables" as vars;
+@use "../utils/mixins" as mixin;
+
+.user-list {
+  max-width: 1600px;
+
+  h3 {
+    color: vars.$primary-color;
+  }
+
+  h3::after {
+    display: none;
+  }
+}
+
+.user-grid {
+  flex-grow: 1;
+  padding: 10px;
+  background-color: vars.$tertiary-color;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  @include mixin.respond-to(tablet) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  @include mixin.respond-to(desktop) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.user-header {
+  font-weight: bold;
+}
+
+.user-item {
+  display: contents;
+  position: relative;
+
+  div {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    text-align: left;
+  }
+}
+
+.user-row:hover div {
+  background-color: vars.$secondary-color;
+}
+
+.user-email,
+.user-role,
+.user-id {
+  display: none;
+}
+
+@include mixin.respond-to(tablet) {
+  .user-email {
+    display: inline;
+  }
+}
+
+@include mixin.respond-to(desktop) {
+  .user-role,
+  .user-id {
+    display: inline;
+  }
+}

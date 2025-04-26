@@ -1,0 +1,11 @@
+@use "../utils/mixins" as mixin;
+
+#blog-description {
+  @include mixin.respond-to(desktop) {
+    margin-top: 20px;
+  }
+
+  a {
+    text-decoration: underline;
+  }
+}

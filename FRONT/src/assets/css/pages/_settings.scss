@@ -1,0 +1,32 @@
+@use "../utils/variables" as vars;
+@use "../utils/mixins" as mixin;
+
+.settings-container {
+  max-width: 800px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  background-color: vars.$tertiary-color;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  @include mixin.respond-to(desktop) {
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+}
+
+.settings {
+  margin: 20px;
+  display: flexbox;
+  flex-direction: column;
+
+  &-buttons {
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.settings-buttons {
+  justify-content: right;
+}

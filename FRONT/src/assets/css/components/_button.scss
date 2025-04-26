@@ -1,0 +1,64 @@
+@use "../utils/variables" as vars;
+@use "../utils/mixins" as mixin;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px; // Espace entre l'icône et le texte
+  padding: 12px 16px; // Augmenter le padding pour plus d'espace
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+
+  &--primary {
+    background-color: vars.$primary-button-color;
+  }
+
+  &--secondary {
+    background-color: vars.$secondary-button-color;
+  }
+
+  &--primary,
+  &--secondary {
+    @include mixin.ellipsis();
+    max-width: 100%; // Limite la largeur du bouton à 100% de son conteneur
+    display: flex; // Utilise flexbox pour aligner les icônes et le texte
+    align-items: center; // Centre verticalement les éléments
+    justify-content: center; // Centre horizontalement les éléments
+
+    &:hover {
+      transform: translateY(-2px);
+      background-color: vars.$hovered-button-color;
+    }
+
+    color: vars.$text-light-color;
+  }
+
+  &--no-hover {
+    background-color: vars.$secondary-button-color;
+    color: vars.$text-light-color;
+  }
+
+  svg {
+    font-size: 1.5rem; // Taille de l'icône
+  }
+}
+
+.header__buttons,
+.admin-actions,
+.button-group {
+  .btn--primary span,
+  .btn--secondary span {
+    display: none; // Cache le texte des boutons par défaut sur mobile
+
+    @include mixin.respond-to(tablet) {
+      display: inline; // Affiche le texte des boutons sur les écrans plus grands
+    }
+
+    @include mixin.respond-to(desktop) {
+      display: inline; // Affiche le texte des boutons sur les écrans plus grands
+    }
+  }
+}

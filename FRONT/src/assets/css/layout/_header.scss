@@ -1,0 +1,31 @@
+@use "../utils/variables" as vars;
+@use "../utils/mixins" as mixin;
+
+.header {
+  display: flex;
+  flex-direction: column;
+
+  &__bottom {
+    border-top: 2px solid vars.$border-color;
+    border-bottom: 2px solid vars.$border-color;
+    background-color: vars.$secondary-color;
+    padding: 10px;
+    justify-content: center;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @include mixin.respond-to(tablet) {
+      grid-template-columns: 1fr 2fr;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+
+    @include mixin.respond-to(tablet) {
+      justify-content: right;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+@use "../utils/variables" as vars;
+@use "../utils/mixins" as mixin;
+
+#home_banner {
+  position: relative; // Positionne l'élément de manière relative, ce qui permet de positionner les éléments enfants de manière absolue par rapport à celui-ci.
+  width: 100vw; // Définit la largeur de la bannière à 100% de la largeur de la fenêtre d'affichage.
+  height: 25vh; // Définit la hauteur de la bannière à 25% de la hauteur de la fenêtre d'affichage.
+  box-sizing: border-box;
+  overflow: hidden;
+
+  @include mixin.respond-to(tablet) {
+    height: 30vh; // Augmente la hauteur de la bannière à 30% de la hauteur de la fenêtre pour les écrans de largeur minimale de 768px.
+  }
+
+  @include mixin.respond-to(desktop) {
+    height: 40vh; // Augmente la hauteur de la bannière à 40% de la hauteur de la fenêtre pour les écrans de largeur minimale de 1024px.
+  }
+
+  img {
+    position: absolute; // Positionne l'image de manière absolue par rapport à l'élément parent #home_banner.
+    top: 0; // Aligne le haut de l'image avec le haut de l'élément parent.
+    left: 0; // Aligne le côté gauche de l'image avec le côté gauche de l'élément parent.
+    width: 100%; // Définit la largeur de l'image à 100% de la largeur de l'élément parent.
+    height: 100%; // Définit la hauteur de l'image à 100% de la hauteur de l'élément parent.
+    object-fit: cover; // Ajuste l'image pour couvrir entièrement l'élément parent tout en conservant ses proportions.
+    object-position: center 20%; // Centre l'image horizontalement et la positionne à 20% de la hauteur de l'élément parent.
+  }
+
+  h2 {
+    font-size: 3rem; // Définit la taille de la police du texte à 2rem.
+    padding: 0; // Supprime le padding autour du texte.
+    position: absolute; // Positionne le texte de manière absolue par rapport à l'élément parent #home_banner.
+    bottom: 10%; // Positionne le bas du texte à 10% de la hauteur de l'élément parent.
+    left: 5%; // Positionne le côté gauche du texte à 5% de la largeur de l'élément parent.
+    z-index: 1; // Assure que le texte est au-dessus de l'image
+    color: vars.$text-light-color; // Couleur du texte en blanc
+    font-weight: bold; // Texte en gras
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); // Ajoute une ombre au texte pour le rendre plus lisible
+  }
+}

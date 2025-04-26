@@ -1,0 +1,13 @@
+@use "../utils/mixins" as mixin;
+
+.react-article {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.user-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
