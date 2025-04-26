@@ -42,7 +42,7 @@
         margin: 5px 0;
 
         a {
-          color: vars.$text-color;
+          color: vars.$text-light-color;
           text-decoration: none;
           font-weight: 600;
           transition: color 0.3s, transform 0.3s ease-in-out;
@@ -70,7 +70,7 @@
           display: flex;
           align-items: center;
           transition: transform 0.2s ease-in-out;
-          color: vars.$text-color;
+          color: vars.$text-light-color;
 
           &:hover {
             transform: scale(1.2);
