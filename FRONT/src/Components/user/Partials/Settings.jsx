@@ -48,15 +48,16 @@ function Settings() {
 
   const verifPasswordBlur = () => {
     if (password !== secondpassword) {
-      /* Les mots de passe ne correspondent pas */
       setUserMessage("Les mots de passe ne correspondent pas.");
       setIsCorrect(false);
-    }
-    if (!verifPassword(password)) {
+    } else if (!verifPassword(password)) {
       setUserMessage(
         "Utiliser au moins 8 caractères dont un chiffre, une minuscule, une majuscule et un caractère spécial (*?@!%$&)"
       );
       setIsCorrect(false);
+    } else {
+      setIsCorrect(true);
+      setUserMessage("");
     }
   };
 
