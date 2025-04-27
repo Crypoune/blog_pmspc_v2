@@ -126,7 +126,6 @@ function Settings() {
     <section id="user_settings" className="settings-container">
       <div className="dashboard-area">
         <h3>Mise à jour de vos informations</h3>
-        <p>{userMessage}</p>
         <section>
           <div>
             <div className="form-group">
@@ -202,6 +201,7 @@ function Settings() {
               </div>
             )}
           </div>
+          <p>{userMessage}</p>
           <div className="settings-buttons">
             <Button
               key="Valider"
