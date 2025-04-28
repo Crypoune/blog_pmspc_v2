@@ -1,6 +1,5 @@
 export default (req, res, next) => {
 
-
   //return next(); // Pour dev
   // Vérification si l'utilisateur est authentifié
   if (req.session.user) {

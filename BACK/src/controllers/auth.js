@@ -13,10 +13,10 @@ const getStat = async (req, res) => {
 };
 
 const create = async (req, res) => {
+  
   try {
     const { username, email, password } = req.body;
     const [[user]] = await Auth.findOneByUsername(username);
-
     if (!user) {
       const hash = await bcrypt.hash(password, SALT);
       const [response] = await Auth.create({ username, hash, email });
@@ -32,7 +32,7 @@ const create = async (req, res) => {
         res.status(500).json({ msg: "User not created" });
       }
     } else {
-      res.status(400).json({ msg: "User already exists" });
+      res.status(400).json({ msg: "L'utilisateur existe déjà" });
     }
   } catch (error) {
     res.status(500).json({ msg: error.message });

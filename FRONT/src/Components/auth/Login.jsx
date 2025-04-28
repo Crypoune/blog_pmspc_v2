@@ -1,6 +1,5 @@
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { UserContext } from "/src/context/UserContext";
 import { verifEmail } from "/src/Components/utils/verifMail.js";
 import { verifPassword } from "/src/Components/utils/verifPassword.js";
@@ -15,39 +14,38 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [secondpassword, setSecondPassword] = useState("");
-  const [isCorrect, setIsCorrect] = useState(true);
   const [userMessage, setUserMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Utilisation d'une variable locale isValid pour contrôler les erreurs
+    let isValid = true; // Variable locale au lieu de `useState`
+
     if (theButton === "inscription") {
       if (!verifEmail(email)) {
         setUserMessage("Ce n'est pas une adresse mail valide.");
-        setIsCorrect(false);
-        return;
+        isValid = false;
       }
       if (!verifPassword(password)) {
         setUserMessage(
           "Utiliser au moins un chiffre, une minuscule, une majuscule et un caractère spécial"
         );
-        setIsCorrect(false);
-        return;
+        isValid = false;
       }
       if (password !== secondpassword) {
         /* Les mots de passe ne correspondent pas */
         setUserMessage("Les mots de passe ne correspondent pas.");
-        setIsCorrect(false);
-        return;
+        isValid = false;
       }
     }
 
-    if (isCorrect) {
+    if (isValid) {
       changeProfile();
     }
   };
 
-  const changeProfile = async (e) => {
+  const changeProfile = async () => {
     try {
       if (theButton === "inscription") {
         const response = await fetch(
@@ -62,8 +60,7 @@ const Login = () => {
 
         const data = await response.json();
         if (!response.ok) {
-          setUserMessage("error");
-          setIsCorrect(false);
+          setUserMessage("Erreur lors de l'enregistrement");
           return;
         }
       }
@@ -88,8 +85,7 @@ const Login = () => {
 
       navigate("/");
     } catch (error) {
-      setUserMessage("error");
-      setIsCorrect(false);
+      setUserMessage("Erreur lors de l'enregistrement");
     }
   };
 
@@ -97,7 +93,6 @@ const Login = () => {
     if (password !== secondpassword) {
       /* Les mots de passe ne correspondent pas */
       setUserMessage("Les mots de passe ne correspondent pas.");
-      setIsCorrect(false);
     } else {
       setUserMessage("");
     }
@@ -108,8 +103,6 @@ const Login = () => {
       <form
         className="login-form"
         onSubmit={handleSubmit}
-        // L'autocomplete permet au navigateur de suggérer et de remplir automatiquement les champs de formulaire en fonction des entrées précédentes de l'utilisateur.
-        // Ici, on désactive l'autocomplete pour l'inscription et l'active sinon.
         autoComplete={theButton === "inscription" ? "off" : "on"}
       >
         <div className="form-group">
@@ -119,7 +112,6 @@ const Login = () => {
             value={username}
             onChange={(e) => {
               setUserMessage("");
-              setIsCorrect(true);
               setUsername(e.target.value);
             }}
             placeholder="Entrez votre identifiant"
@@ -134,7 +126,6 @@ const Login = () => {
             value={password}
             onChange={(e) => {
               setUserMessage("");
-              setIsCorrect(true);
               setPassword(e.target.value);
             }}
             placeholder="Entrez votre mot de passe"
@@ -152,7 +143,6 @@ const Login = () => {
                 value={secondpassword}
                 onChange={(e) => {
                   setUserMessage("");
-                  setIsCorrect(true);
                   setSecondPassword(e.target.value);
                 }}
                 onBlur={verifPasswordBlur}
@@ -170,7 +160,6 @@ const Login = () => {
                 value={email}
                 onChange={(e) => {
                   setUserMessage("");
-                  setIsCorrect(true);
                   setEmail(e.target.value);
                 }}
                 placeholder="Entrez votre mail"

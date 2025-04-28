@@ -6,15 +6,8 @@ import { verifPassword } from "/src/Components/utils/verifPassword.js";
 import Button from "/src/Components/Partials/Button";
 
 function Settings() {
-  const {
-    isAdmin,
-    userId,
-    userName,
-    userMail,
-    currentUser,
-    setCurrentUser,
-    createdDate,
-  } = useContext(UserContext);
+  const { isAdmin, userId, userName, userMail, setCurrentUser } =
+    useContext(UserContext);
 
   // quand je fusionnerai AuthContext et UserContext...
   // const { setAuth } = useContext(AuthContext);
@@ -23,7 +16,6 @@ function Settings() {
   const [email, setEmail] = useState(userMail());
   const [password, setPassword] = useState("");
   const [secondpassword, setSecondPassword] = useState("");
-  const [isCorrect, setIsCorrect] = useState(true);
   const [userMessage, setUserMessage] = useState("");
   const [changePassword, setChangePassword] = useState(false);
 
@@ -46,79 +38,78 @@ function Settings() {
     return <p role="status">Chargement...</p>;
   }
 
-  const verifPasswordBlur = () => {
-    if (password !== secondpassword) {
-      setUserMessage("Les mots de passe ne correspondent pas.");
-      setIsCorrect(false);
-    } else if (!verifPassword(password)) {
-      setUserMessage(
-        "Utiliser au moins 8 caractères dont un chiffre, une minuscule, une majuscule et un caractère spécial (*?@!%$&)"
-      );
-      setIsCorrect(false);
-    } else {
-      setIsCorrect(true);
-      setUserMessage("");
-    }
-  };
-
   const controlValues = () => {
-    if (changePassword && password == "") {
-      setUserMessage("Le mot de passe ne peut pas être vide.");
-      setIsCorrect(false);
+    let isValid = true;
+
+    if (changePassword) {
+      if (password === "") {
+        setUserMessage("Le mot de passe ne peut pas être vide.");
+        isValid = false;
+      } else if (password !== secondpassword) {
+        setUserMessage("Les mots de passe ne correspondent pas.");
+        isValid = false;
+      } else if (!verifPassword(password)) {
+        setUserMessage(
+          "Utiliser au moins 8 caractères dont un chiffre, une minuscule, une majuscule et un caractère spécial (*?@!%$&)"
+        );
+        isValid = false;
+      }
     }
-    changePassword && verifPasswordBlur();
 
     if (!verifEmail(email)) {
       setUserMessage("Ce n'est pas une adresse mail valide.");
-      setIsCorrect(false);
+      isValid = false;
     }
+
+    if (isValid) {
+      setUserMessage(""); // Nettoie l'ancien message
+    }
+
+    return isValid;
   };
 
   const onVal = () => {
-    setIsCorrect(true);
-    setUserMessage("");
-    controlValues();
-    isCorrect && onSubmitUpdate();
+    if (controlValues()) {
+      onSubmitUpdate();
+    }
   };
 
   const onSubmitUpdate = async () => {
     setUserMessage("Enregistrement des modifications");
-    if (isCorrect) {
-      try {
-        const response = await fetch(
-          `http://localhost:9000/back/v1/auth/update/${userId()}`,
-          {
-            method: "PATCH",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include",
-            body: JSON.stringify({
-              mail: email,
-              password: password,
-              username: userName(),
-              change: changePassword,
-              id_user: userId(),
-            }),
-          }
-        );
-
-        if (response.ok) {
-          setPassword("");
-          setSecondPassword("");
-          setCurrentUser((prevCurrentUser) => ({
-            ...prevCurrentUser,
+    try {
+      const response = await fetch(
+        `http://localhost:9000/back/v1/auth/update/${userId()}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify({
             mail: email,
-          }));
-          setUserMessage("Modifications enregistrées");
-        } else {
-          setUserMessage("Modifications refusées");
+            password: password,
+            username: userName(),
+            change: changePassword,
+            id_user: userId(),
+          }),
         }
-      } catch (err) {
-        setUserMessage("Erreur réseau lors de la modification");
+      );
+
+      if (response.ok) {
         setPassword("");
         setSecondPassword("");
+        setCurrentUser((prevCurrentUser) => ({
+          ...prevCurrentUser,
+          mail: email,
+        }));
+        setUserMessage("Modifications enregistrées");
+      } else {
+        setUserMessage("Modifications refusées");
       }
+    } catch (err) {
+      setUserMessage("Erreur réseau lors de la modification");
+      setPassword("");
+      setSecondPassword("");
     }
   };
 
@@ -148,7 +139,6 @@ function Settings() {
                 value={email}
                 onChange={(e) => {
                   setUserMessage("");
-                  setIsCorrect(true);
                   setEmail(e.target.value);
                 }}
                 placeholder="Entrez votre email"
@@ -162,7 +152,6 @@ function Settings() {
                 checked={changePassword}
                 onChange={(e) => {
                   setUserMessage("");
-                  setIsCorrect(true);
                   setChangePassword(!changePassword);
                 }}
               />
@@ -178,7 +167,6 @@ function Settings() {
                   value={password}
                   onChange={(e) => {
                     setUserMessage("");
-                    setIsCorrect(true);
                     setPassword(e.target.value);
                   }}
                   placeholder="Entrez votre mot de passe"
@@ -191,10 +179,8 @@ function Settings() {
                   value={secondpassword}
                   onChange={(e) => {
                     setUserMessage("");
-                    setIsCorrect(true);
                     setSecondPassword(e.target.value);
                   }}
-                  onBlur={verifPasswordBlur}
                   placeholder="Confirmez votre mot de passe"
                   autoComplete="off"
                 />
